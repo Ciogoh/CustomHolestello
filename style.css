@@ -265,38 +265,58 @@ code {
         right: 0;
         bottom: 0;
         top: auto;
-        border-radius: 24px 24px 0 0;
-        background: rgba(40, 40, 40, 0.95);
-        backdrop-filter: blur(15px);
-        max-height: 85vh;
-        padding: 5px 20px 40px 20px;
+        border-radius: 20px 20px 0 0;
+        background: rgba(40, 40, 40, 0.98);
+        /* Less transparent for readability */
+        backdrop-filter: blur(20px);
+        height: 66vh;
+        /* Exactly 2/3 of screen */
+        max-height: 66vh;
+        padding: 5px 20px 0px 20px;
+        /* Safe padding */
         border-bottom: none;
         border-left: none;
-        /* Cleaner look */
         border-right: none;
-        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
         transform: translateY(0);
         /* Default Open */
-        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         will-change: transform;
         z-index: 1000;
+        display: flex;
+        flex-direction: column;
     }
 
     #ui-container.minimized {
         transform: translateY(calc(100% - 30px));
-        /* Hide all except handle area */
-        overflow: hidden;
+        /* Hide all except top 30px (Handle) */
+    }
+
+    /* Content wrapper to allow scrolling inside fixed height */
+    .header-row,
+    .control-group,
+    .info-group,
+    button {
+        flex-shrink: 0;
+    }
+
+    #ui-container {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     /* Drawer Handle */
     #drawer-handle {
-        width: 40px;
-        height: 5px;
-        background: #666;
+        width: 48px;
+        height: 6px;
+        background: #bbb;
+        /* Lighter for visibility */
         border-radius: 10px;
-        margin: 10px auto 20px auto;
-        /* More spacing */
+        margin: 0 auto 15px auto;
         cursor: grab;
+        flex-shrink: 0;
+        position: sticky;
+        top: 0;
     }
 
     /* Adjust Title */
