@@ -15,24 +15,112 @@ body {
     position: absolute;
     top: 20px;
     left: 20px;
-    background: rgba(40, 40, 40, 0.95);
+    background: rgba(40, 40, 40, 0.85);
+    /* Slightly more transparent */
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     z-index: 10;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
+    /* Stronger blur */
     width: 280px;
     border: 1px solid #444;
+    max-height: 90vh;
+    /* Prevent overflow on vertical */
+    overflow-y: auto;
+    /* Scroll if needed */
+    scrollbar-width: thin;
+    transition: all 0.3s ease;
+}
+
+/* Header */
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 h1 {
     font-size: 1.2rem;
-    margin-top: 0;
-    margin-bottom: 15px;
+    margin: 0;
     color: #fff;
-    text-align: center;
+    font-weight: 700;
 }
 
+/* Icons and Chips */
+.icon-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.presets {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    /* Larger gap for touch */
+}
+
+.chip {
+    background: #444;
+    border: 1px solid #555;
+    border-radius: 12px;
+    padding: 6px 12px;
+    /* Larger touch target */
+    font-size: 0.85rem;
+    color: #eee;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.chip:active,
+.chip:hover {
+    background: #007AFF;
+    border-color: #007AFF;
+}
+
+/* Overlay */
+#info-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Center on screen */
+    width: 300px;
+    max-width: 90%;
+    background: #2a2a2a;
+    border: 1px solid #555;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.hidden {
+    display: none;
+}
+
+#info-overlay h3 {
+    margin-top: 0;
+    color: #007AFF;
+}
+
+#close-info-btn {
+    background: #444;
+    margin-top: 15px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+/* Controls */
 .control-group {
     margin-bottom: 15px;
 }
@@ -41,39 +129,52 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    background: #333;
-    padding: 8px;
-    border-radius: 6px;
+    margin-bottom: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px;
+    border-radius: 8px;
 }
 
 .radio-group {
     display: flex;
-    gap: 10px;
+    gap: 5px;
+    background: #333;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.radio-group input {
+    display: none;
 }
 
 .radio-group label {
-    font-weight: normal;
-    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background: transparent;
+    color: #aaa;
+    font-size: 0.85rem;
+    transition: all 0.2s;
     margin: 0;
 }
 
+.radio-group input:checked+label {
+    background: #555;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
 .info-group {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-size: 0.9rem;
     color: #aaa;
-    background: #333;
+    background: rgba(0, 0, 0, 0.2);
     padding: 10px;
     border-radius: 6px;
 }
 
-.info-group p {
-    margin: 3px 0;
-}
-
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
     font-weight: 500;
     color: #ccc;
     font-size: 0.9rem;
@@ -82,24 +183,34 @@ label {
 input[type="number"],
 input[type="text"] {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
+    /* Larger padding */
     background: #333;
     border: 1px solid #555;
     color: white;
-    border-radius: 4px;
+    border-radius: 6px;
     box-sizing: border-box;
+    font-size: 1rem;
+    /* Prevent zoom on iOS */
+}
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 button {
     border: none;
-    padding: 12px 15px;
-    border-radius: 6px;
+    padding: 14px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     width: 100%;
     transition: all 0.2s;
-    margin-bottom: 10px;
+    margin: 0;
 }
 
 button.primary {
@@ -107,49 +218,63 @@ button.primary {
     color: white;
 }
 
-button.primary:hover {
-    background-color: #0060cb;
+button.primary:active {
+    transform: scale(0.98);
 }
 
 button.secondary {
-    background-color: #444;
+    background-color: transparent;
+    border: 1px solid #555;
     color: #ccc;
 }
 
-button.secondary:hover {
-    background-color: #555;
-    color: white;
-}
-
+/* Help Box */
 .help-box {
     margin-top: 15px;
     padding: 12px;
-    background: #333;
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 6px;
-    font-size: 0.85rem;
-    color: #ccc;
-    border: 1px solid #555;
+    font-size: 0.8rem;
+    color: #888;
+    border: none;
 }
 
 .help-box strong {
-    display: block;
-    margin-bottom: 8px;
-    color: #fff;
-}
-
-.help-box ol {
-    padding-left: 20px;
-    margin: 0;
-}
-
-.help-box li {
-    margin-bottom: 4px;
+    color: #aaa;
 }
 
 code {
-    background: #222;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-family: monospace;
     color: #8ed6fb;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 600px) {
+    #ui-container {
+        width: auto;
+        top: auto;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        border-radius: 20px 20px 0 0;
+        max-height: 50vh;
+        /* Half screen */
+        padding: 20px 20px 40px 20px;
+        /* Extra padding bottom for safe area */
+        border-bottom: none;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    h1 {
+        font-size: 1.1rem;
+    }
+
+    /* Move canvas up slightly if needed, or just let it be behind */
+    #canvas-container {
+        pointer-events: all;
+    }
+
+    /* Adjust inputs spacing */
+    .control-group {
+        margin-bottom: 12px;
+    }
 }
