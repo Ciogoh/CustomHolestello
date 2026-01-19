@@ -155,14 +155,29 @@ function init() {
     const drawerHandle = document.getElementById('drawer-handle');
     const canvasContainer = document.getElementById('canvas-container');
 
-    // 1. Minimized by clicking canvas
-    // Use 'pointerdown' to catch interactions even with controls
+    // 1. Minimized by clicking canvas (Tap detection)
+    // We must distinguish between "Rotating model" (Drag) and "Tapping background" (Hide UI)
+    let canvasTouchStartX = 0;
+    let canvasTouchStartY = 0;
+
     if (canvasContainer) {
+        // Capture start pos
         canvasContainer.addEventListener('pointerdown', (e) => {
-            if (window.innerWidth <= 600) {
-                // Only minimize if not already minimized? Or toggle?
-                // Requirement: "see only the preview" -> minimize UI
-                uiContainer.classList.add('minimized');
+            canvasTouchStartX = e.clientX;
+            canvasTouchStartY = e.clientY;
+        });
+
+        // Check end pos
+        canvasContainer.addEventListener('pointerup', (e) => {
+            const diffX = Math.abs(e.clientX - canvasTouchStartX);
+            const diffY = Math.abs(e.clientY - canvasTouchStartY);
+
+            // If movement is small (< 10px), it's a tap
+            if (diffX < 10 && diffY < 10) {
+                if (window.innerWidth <= 600) {
+                    // If we tap the 3D view, we want to SEE it -> Minimize UI
+                    uiContainer.classList.add('minimized');
+                }
             }
         });
     }
@@ -174,17 +189,19 @@ function init() {
             uiContainer.classList.toggle('minimized');
         });
 
-        // Simple Swipe Logic
-        let touchStartY = 0;
+        // Swipe Logic (Touch)
+        let handleTouchStartY = 0;
         drawerHandle.addEventListener('touchstart', e => {
-            touchStartY = e.touches[0].clientY;
+            handleTouchStartY = e.touches[0].clientY;
         }, { passive: true });
 
         drawerHandle.addEventListener('touchend', e => {
             const touchEndY = e.changedTouches[0].clientY;
-            const diff = touchStartY - touchEndY;
-            if (diff > 30) uiContainer.classList.remove('minimized'); // Swipe Up
-            if (diff < -30) uiContainer.classList.add('minimized');    // Swipe Down
+            const diff = handleTouchStartY - touchEndY;
+            // Swipe Up (show)
+            if (diff > 30) uiContainer.classList.remove('minimized');
+            // Swipe Down (hide)
+            if (diff < -30) uiContainer.classList.add('minimized');
         }, { passive: true });
     }
 }
