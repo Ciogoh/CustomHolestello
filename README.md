@@ -2,6 +2,8 @@
 
 A web-based tool to generate customizable 3D blocks with holes and grooves, designed for workflow integration with Rhino 3D.
 
+**[🌐 Live Demo / Tool Link](https://ciogoh.github.io/CustomHolestello/)**
+
 ## Features
 
 - **Dynamic Box Sizing**: Height automatically adjusts based on the number of holes.
