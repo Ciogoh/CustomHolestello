@@ -247,34 +247,70 @@ code {
     color: #8ed6fb;
 }
 
+/* HELPER CLASSES */
+.mobile-only {
+    display: none;
+}
+
 /* MOBILE RESPONSIVE */
 @media (max-width: 600px) {
-    #ui-container {
-        width: auto;
-        top: auto;
-        bottom: 0px;
-        left: 0px;
-        right: 0px;
-        border-radius: 20px 20px 0 0;
-        max-height: 50vh;
-        /* Half screen */
-        padding: 20px 20px 40px 20px;
-        /* Extra padding bottom for safe area */
-        border-bottom: none;
-        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+    .mobile-only {
+        display: block;
     }
 
+    #ui-container {
+        width: 100%;
+        /* Full Width */
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto;
+        border-radius: 24px 24px 0 0;
+        background: rgba(40, 40, 40, 0.95);
+        backdrop-filter: blur(15px);
+        max-height: 85vh;
+        padding: 5px 20px 40px 20px;
+        border-bottom: none;
+        border-left: none;
+        /* Cleaner look */
+        border-right: none;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+        transform: translateY(0);
+        /* Default Open */
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
+        z-index: 1000;
+    }
+
+    #ui-container.minimized {
+        transform: translateY(calc(100% - 30px));
+        /* Hide all except handle area */
+        overflow: hidden;
+    }
+
+    /* Drawer Handle */
+    #drawer-handle {
+        width: 40px;
+        height: 5px;
+        background: #666;
+        border-radius: 10px;
+        margin: 10px auto 20px auto;
+        /* More spacing */
+        cursor: grab;
+    }
+
+    /* Adjust Title */
     h1 {
         font-size: 1.1rem;
     }
 
-    /* Move canvas up slightly if needed, or just let it be behind */
-    #canvas-container {
-        pointer-events: all;
+    .header-row {
+        margin-bottom: 20px;
+        /* More breathing room */
     }
 
-    /* Adjust inputs spacing */
-    .control-group {
-        margin-bottom: 12px;
+    /* Reset button width */
+    button {
+        width: 100%;
     }
 }

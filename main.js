@@ -120,6 +120,73 @@ function init() {
 
     if (downloadObjBtn) downloadObjBtn.addEventListener('click', downloadOBJ);
     if (downloadRhinoBtn) downloadRhinoBtn.addEventListener('click', downloadRhinoScript);
+
+    // BRANDING & PRESETS
+    const presetGiraffe = document.getElementById('preset-giraffe');
+    if (presetGiraffe) {
+        presetGiraffe.addEventListener('click', () => {
+            const giraffeCounts = "5, 5, 5, 5, 5, 9, 2, 2, 1";
+            batchInput.value = giraffeCounts;
+            // Update internal state
+            const parts = giraffeCounts.split(',').map(s => parseInt(s.trim()));
+            batchList = parts;
+            updateHeightDisplay();
+            debouncedGenerate();
+        });
+    }
+
+    const infoBtn = document.getElementById('info-btn');
+    const closeInfoBtn = document.getElementById('close-info-btn');
+    const infoOverlay = document.getElementById('info-overlay');
+
+    if (infoBtn && infoOverlay) {
+        infoBtn.addEventListener('click', () => {
+            infoOverlay.classList.toggle('hidden');
+        });
+    }
+    if (closeInfoBtn && infoOverlay) {
+        closeInfoBtn.addEventListener('click', () => {
+            infoOverlay.classList.add('hidden');
+        });
+    }
+
+    // MOBILE DRAWER LOGIC
+    const uiContainer = document.getElementById('ui-container');
+    const drawerHandle = document.getElementById('drawer-handle');
+    const canvasContainer = document.getElementById('canvas-container');
+
+    // 1. Minimized by clicking canvas
+    // Use 'pointerdown' to catch interactions even with controls
+    if (canvasContainer) {
+        canvasContainer.addEventListener('pointerdown', (e) => {
+            if (window.innerWidth <= 600) {
+                // Only minimize if not already minimized? Or toggle?
+                // Requirement: "see only the preview" -> minimize UI
+                uiContainer.classList.add('minimized');
+            }
+        });
+    }
+
+    // 2. Restore/Toggle by clicking Handle
+    if (drawerHandle) {
+        drawerHandle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent bubbling
+            uiContainer.classList.toggle('minimized');
+        });
+
+        // Simple Swipe Logic
+        let touchStartY = 0;
+        drawerHandle.addEventListener('touchstart', e => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        drawerHandle.addEventListener('touchend', e => {
+            const touchEndY = e.changedTouches[0].clientY;
+            const diff = touchStartY - touchEndY;
+            if (diff > 30) uiContainer.classList.remove('minimized'); // Swipe Up
+            if (diff < -30) uiContainer.classList.add('minimized');    // Swipe Down
+        }, { passive: true });
+    }
 }
 
 function updateModeUI() {

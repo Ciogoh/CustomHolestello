@@ -34,7 +34,20 @@
 
 <body>
     <div id="ui-container">
-        <h1>Holey Box Generator</h1>
+        <!-- Mobile Handle -->
+        <div id="drawer-handle" class="mobile-only"></div>
+
+        <div class="header-row">
+            <h1>Holestello <span style="font-weight:300; opacity:0.6; font-size:0.8em">Architect</span></h1>
+            <button id="info-btn" class="icon-btn" aria-label="Game Info">ℹ️</button>
+        </div>
+
+        <div id="info-overlay" class="hidden">
+            <h3>About Holestello</h3>
+            <p>Holestello is a game where you build structures using modular blocks with holes. This tool generates the
+                custom blocks needed for the game in 3D, ready for Rhino export.</p>
+            <button id="close-info-btn">Close</button>
+        </div>
 
         <div class="control-group mode-toggle">
             <label>Mode:</label>
@@ -56,6 +69,9 @@
         <div id="batch-controls" class="control-group" style="display: none;">
             <label for="batch-input">Hole Counts (comma sep):</label>
             <input type="text" id="batch-input" value="3, 2, 5" placeholder="e.g. 3, 2, 5">
+            <div class="presets">
+                <button id="preset-giraffe" class="chip">🦒 Giraffe Preset</button>
+            </div>
             <small style="display:block; color:#888; margin-top:4px;">Generates multiple blocks</small>
         </div>
 
