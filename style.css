@@ -1,0 +1,155 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #222;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#ui-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(40, 40, 40, 0.95);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    backdrop-filter: blur(5px);
+    width: 280px;
+    border: 1px solid #444;
+}
+
+h1 {
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #fff;
+    text-align: center;
+}
+
+.control-group {
+    margin-bottom: 15px;
+}
+
+.mode-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background: #333;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.radio-group {
+    display: flex;
+    gap: 10px;
+}
+
+.radio-group label {
+    font-weight: normal;
+    cursor: pointer;
+    margin: 0;
+}
+
+.info-group {
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #aaa;
+    background: #333;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.info-group p {
+    margin: 3px 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    background: #333;
+    border: 1px solid #555;
+    color: white;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    border: none;
+    padding: 12px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    width: 100%;
+    transition: all 0.2s;
+    margin-bottom: 10px;
+}
+
+button.primary {
+    background-color: #007AFF;
+    color: white;
+}
+
+button.primary:hover {
+    background-color: #0060cb;
+}
+
+button.secondary {
+    background-color: #444;
+    color: #ccc;
+}
+
+button.secondary:hover {
+    background-color: #555;
+    color: white;
+}
+
+.help-box {
+    margin-top: 15px;
+    padding: 12px;
+    background: #333;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: #ccc;
+    border: 1px solid #555;
+}
+
+.help-box strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.help-box ol {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.help-box li {
+    margin-bottom: 4px;
+}
+
+code {
+    background: #222;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: monospace;
+    color: #8ed6fb;
+}

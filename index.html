@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holey Box Generator (MM)</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://esm.sh/three@0.160.0",
+                "three/addons/": "https://esm.sh/three@0.160.0/examples/jsm/",
+                "three-bvh-csg": "https://esm.sh/three-bvh-csg@0.0.16?external=three"
+            }
+        }
+    </script>
+    <script>
+        window.addEventListener('error', function (event) {
+            const errorBox = document.createElement('div');
+            errorBox.style.position = 'fixed';
+            errorBox.style.top = '10px';
+            errorBox.style.right = '10px';
+            errorBox.style.backgroundColor = 'red';
+            errorBox.style.color = 'white';
+            errorBox.style.padding = '10px';
+            errorBox.style.zIndex = '1000';
+            errorBox.innerText = 'Error: ' + event.message;
+            document.body.appendChild(errorBox);
+            console.error(event.error);
+        });
+    </script>
+</head>
+
+<body>
+    <div id="ui-container">
+        <h1>Holey Box Generator</h1>
+
+        <div class="control-group mode-toggle">
+            <label>Mode:</label>
+            <div class="radio-group">
+                <input type="radio" id="mode-single" name="mode" value="single" checked>
+                <label for="mode-single">Single</label>
+                <input type="radio" id="mode-batch" name="mode" value="batch">
+                <label for="mode-batch">Batch</label>
+            </div>
+        </div>
+
+        <!-- Single Mode Input -->
+        <div id="single-controls" class="control-group">
+            <label for="holes-input">Number of Holes: <span id="holes-val">5</span></label>
+            <input type="number" id="holes-input" min="1" max="50" value="5">
+        </div>
+
+        <!-- Batch Mode Input -->
+        <div id="batch-controls" class="control-group" style="display: none;">
+            <label for="batch-input">Hole Counts (comma sep):</label>
+            <input type="text" id="batch-input" value="3, 2, 5" placeholder="e.g. 3, 2, 5">
+            <small style="display:block; color:#888; margin-top:4px;">Generates multiple blocks</small>
+        </div>
+
+        <div class="control-group">
+            <label for="radius-input">Drill Radius (mm):</label>
+            <input type="number" id="radius-input" min="1" max="20" value="4" step="0.5">
+        </div>
+
+        <div class="control-group">
+            <label for="depth-input">Groove Depth (mm):</label>
+            <input type="number" id="depth-input" min="0" max="10" value="0.5" step="0.5">
+        </div>
+
+        <div class="info-group">
+            <p>Total Height: <span id="height-display">100</span> mm</p>
+            <p>Base: 20x20 mm</p>
+        </div>
+
+        <button id="download-rhino-btn" class="primary">Download for Rhino (.py)</button>
+        <button id="download-obj-btn" class="secondary">Download Mesh (.obj)</button>
+
+        <div class="help-box">
+            <strong>How to use .py in Rhino:</strong>
+            <ol>
+                <li>Open Rhino (Units: MM)</li>
+                <li>Type command: <code>RunPythonScript</code></li>
+                <li>Select the downloaded file</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <script type="module" src="main.js?v=5"></script>
+</body>
+
+</html>
